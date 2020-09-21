@@ -1,4 +1,4 @@
-package io.github.milantracy;
+package task;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,46 +21,56 @@ class App {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		boolean is_array_correct = checkArray(position);
-		System.out.println("Is " + position + " corcect:" + is_array_correct);
-		if (is_array_correct) {
-			int[] p = convertToArray(position);
+		if (position.trim().length() == 0) {
+			System.out.println("result: [-1,-1]");
+		} else {
+			boolean is_array_correct = checkArray(position);
+			System.out.println("Is " + position + " corcect:" + is_array_correct);
+			if (is_array_correct) {
+				int[] p = convertToArray(position);
 
-			boolean pCheck = checkPositionInput(p);
+				boolean pCheck = checkPositionInput(p);
 
-			System.out.println("Is " + position + " corcect data:" + pCheck);
+				System.out.println("Is " + position + " corcect data:" + pCheck);
 
-			System.out.println("Set direction data, excample: 1,4,1,3,2,3,2,4,1,0");
+				System.out.println("Set direction data, excample: 1,4,1,3,2,3,2,4,1,0");
 
-			BufferedReader reader2 = new BufferedReader(new InputStreamReader(System.in));
-			String direction = null;
-			try {
-				direction = reader2.readLine();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				BufferedReader reader2 = new BufferedReader(new InputStreamReader(System.in));
+				String direction = null;
+				try {
+					direction = reader2.readLine();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (direction.trim().length() == 0) {
+					System.out.println("result: [-1,-1]");
+				} else {
+				boolean is_array_correct2 = checkArray(direction);
+				System.out.println("Is " + direction + " corcect array:" + is_array_correct2);
 
-			boolean is_array_correct2 = checkArray(direction);
-			System.out.println("Is " + direction + " corcect array:" + is_array_correct2);
-			
-			
-			if (is_array_correct2) {
+				if (is_array_correct2) {
 
-				int[] d = convertToArray(direction);
-				boolean is_correct_data=checkDirectionData(d);
-				if(is_correct_data) {
-				int[] result = game(p, d);
-				System.out.println("result: [" + result[0] + "," + result[1] + "]");
-				}else {
+					int[] d = convertToArray(direction);
+					if (d.length == 0) {
+						System.out.println("result: [-1,-1]");
+					} else {
+						boolean is_correct_data = checkDirectionData(d);
+						if (is_correct_data) {
+							int[] result = game(p, d);
+							System.out.println("result: [" + result[0] + "," + result[1] + "]");
+						} else {
+							System.out.println("result: [-1,-1]");
+						}
+					}
+				} else {
 					System.out.println("result: [-1,-1]");
 				}
+
+			} 
 			}else {
 				System.out.println("result: [-1,-1]");
 			}
-
-		}else {
-			System.out.println("result: [-1,-1]");
 		}
 	}
 
@@ -68,30 +78,36 @@ class App {
 		Pattern pattern = Pattern.compile("[\\d*,]*\\d*");
 		return pattern.matcher(array).matches();
 	}
+
 	private static boolean checkDirectionData(int[] direction) {
 		boolean contains = IntStream.of(direction).anyMatch(x -> x > 4);
-		if(contains) {
+		if (contains) {
 			return false;
-		}else if(IntStream.of(direction).anyMatch(x -> x < 0)) {
+		} else if (IntStream.of(direction).anyMatch(x -> x < 0)) {
 			return false;
 		}
 		return true;
 	}
 
 	private static int[] convertToArray(String input) {
+		int[] arr = null;
+		try {
 
-		String[] fn = input.split(",");
+			String[] fn = input.split(",");
 
-		int size = fn.length;
-		int[] arr = new int[size];
-		for (int i = 0; i < size; i++) {
-			arr[i] = Integer.parseInt(fn[i]);
+			int size = fn.length;
+			arr = new int[size];
+			for (int i = 0; i < size; i++) {
+				arr[i] = Integer.parseInt(fn[i]);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-
 		return arr;
 	}
 
 	private static boolean checkPositionInput(int[] position) {
+
 		boolean contains = IntStream.of(position).anyMatch(x -> x < 0);
 		if (contains || position.length != 4 || (position[0] == 0 && position[1] == 0)) {
 			System.out.println("bad input data");
