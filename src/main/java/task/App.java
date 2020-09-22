@@ -25,13 +25,13 @@ class App {
 			System.out.println("result: [-1,-1]");
 		} else {
 			boolean is_array_correct = checkArray(position);
-			System.out.println("Is " + position + " corcect:" + is_array_correct);
+			System.out.println("Is " + position + " correct:" + is_array_correct);
 			if (is_array_correct) {
 				int[] p = convertToArray(position);
 
 				boolean pCheck = checkPositionInput(p);
 
-				System.out.println("Is " + position + " corcect data:" + pCheck);
+				System.out.println("Is " + position + " correct data:" + pCheck);
 
 				System.out.println("Set direction data, excample: 1,4,1,3,2,3,2,4,1,0");
 
@@ -46,29 +46,29 @@ class App {
 				if (direction.trim().length() == 0) {
 					System.out.println("result: [-1,-1]");
 				} else {
-				boolean is_array_correct2 = checkArray(direction);
-				System.out.println("Is " + direction + " corcect array:" + is_array_correct2);
+					boolean is_array_correct2 = checkArray(direction);
+					System.out.println("Is " + direction + " correct array:" + is_array_correct2);
 
-				if (is_array_correct2) {
+					if (is_array_correct2) {
 
-					int[] d = convertToArray(direction);
-					if (d.length == 0) {
-						System.out.println("result: [-1,-1]");
-					} else {
-						boolean is_correct_data = checkDirectionData(d);
-						if (is_correct_data) {
-							int[] result = game(p, d);
-							System.out.println("result: [" + result[0] + "," + result[1] + "]");
-						} else {
+						int[] d = convertToArray(direction);
+						if (d.length == 0) {
 							System.out.println("result: [-1,-1]");
+						} else {
+							boolean is_correct_data = checkDirectionData(d);
+							if (is_correct_data) {
+								int[] result = game(p, d);
+								System.out.println("result: [" + result[0] + "," + result[1] + "]");
+							} else {
+								System.out.println("result: [-1,-1]");
+							}
 						}
+					} else {
+						System.out.println("result: [-1,-1]");
 					}
-				} else {
-					System.out.println("result: [-1,-1]");
-				}
 
-			} 
-			}else {
+				}
+			} else {
 				System.out.println("result: [-1,-1]");
 			}
 		}
