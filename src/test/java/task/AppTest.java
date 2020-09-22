@@ -1,4 +1,4 @@
-package io.github.milantracy;
+package task;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
